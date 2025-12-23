@@ -1,0 +1,3047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Engadget Navbar</title>
+    <!-- Import Poppins font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #ffffff;
+            font-family: 'Poppins', sans-serif;
+            padding-top: 56px; /* Add padding to body to account for fixed navbar */
+        }
+
+        /* Navbar Container - Made Fixed */
+        .navbar {
+            display: flex;
+            align-items: center;
+            background-color: #ffffff;
+            height: 56px;
+            border-bottom: 1px solid #dee2e6;
+            position: fixed; /* Changed to fixed */
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1000; /* Ensure navbar stays on top */
+        }
+
+        /* Logo Styling - Different font from Poppins */
+        .logo {
+            font-family: Georgia, 'Times New Roman', Times, serif; /* Different from Poppins */
+            font-size: 28px;
+            font-weight: bold;
+            color: #212529;
+            text-decoration: none;
+            padding: 0 100px;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            letter-spacing: -1px;
+        }
+
+        .logo:hover {
+            background-color: transparent;
+        }
+
+        /* Navigation Container */
+        .nav-container {
+            display: flex;
+            align-items: center;
+            height: 100%;
+            flex: 1;
+        }
+
+        /* Navigation Links - Using Poppins font */
+        .nav-links {
+            display: flex;
+            list-style: none;
+            height: 100%;
+            margin-left: 20px;
+        }
+
+        .nav-links li {
+            height: 100%;
+        }
+
+        .nav-links a {
+            /* Using Poppins font as per your request */
+            font-family: 'Poppins', sans-serif;
+            text-decoration: none;
+            color: #374151;
+            font-weight: 600; /* Bold font */
+            font-size: 14px;
+            padding: 0 30px; /* More space between links */
+            height: 100%;
+            display: flex;
+            align-items: center;
+            transition: all 0.2s;
+            position: relative;
+            letter-spacing: 0.2px;
+        }
+
+        .nav-links a:hover {
+            color: #111827;
+            background-color: #f9fafb;
+        }
+
+        /* Active link indicator */
+        .nav-links a.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 18px;
+            right: 18px;
+            height: 3px;
+            background-color: #2563eb;
+        }
+
+        /* Search Button in Navigation - Using Poppins font */
+        .nav-search {
+            margin-left: 24px; /* Same spacing as nav links */
+            height: 100%;
+            display: flex;
+            align-items: center;
+        }
+
+        .search-btn {
+            background: none;
+            border: none;
+            color: #6b7280;
+            cursor: pointer;
+            padding: 0 18px; /* Same padding as nav links */
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s;
+            font-size: 16px;
+            /* Using Poppins font as per your request */
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .search-btn:hover {
+            color: #374151;
+            background-color: #f9fafb;
+        }
+
+        /* Hamburger Menu (Mobile Only) - Using Poppins font */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            padding: 0 24px;
+            height: 100%;
+            justify-content: center;
+            background: none;
+            border: none;
+            position: relative;
+            z-index: 1002;
+        }
+
+        .hamburger span {
+            width: 22px;
+            height: 2px;
+            background-color: #374151;
+            margin: 3px 0;
+            transition: 0.3s;
+            border-radius: 2px;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -5px);
+        }
+
+        /* Mobile Menu Panel - Using Poppins font */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -320px;
+            width: 280px;
+            height: 100vh;
+            background-color: #ffffff;
+            z-index: 1001;
+            transition: right 0.3s ease-out;
+            display: flex;
+            flex-direction: column;
+            padding-top: 70px;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        /* Mobile Menu Logo */
+        .mobile-logo {
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-size: 28px;
+            font-weight: bold;
+            color: #212529;
+            text-decoration: none;
+            padding: 20px 24px;
+            border-bottom: 1px solid #f3f4f6;
+            letter-spacing: -1px;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: #ffffff;
+            z-index: 2;
+        }
+
+        /* Close Button in Mobile Menu */
+        .mobile-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: #374151;
+            font-size: 24px;
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 3;
+            transition: all 0.2s;
+        }
+
+        .mobile-close:hover {
+            color: #111827;
+            transform: scale(1.1);
+        }
+
+        .mobile-menu .nav-links {
+            flex-direction: column;
+            height: auto;
+            width: 100%;
+            margin-left: 0;
+            margin-top: 0;
+        }
+
+        .mobile-menu .nav-links li {
+            height: auto;
+            width: 100%;
+        }
+
+        .mobile-menu .nav-links a {
+            padding: 18px 24px;
+            height: auto;
+            border-bottom: 1px solid #f3f4f6;
+            font-size: 16px;
+            color: #374151;
+            font-weight: 600;
+            justify-content: flex-start;
+            /* Using Poppins font in mobile menu */
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .mobile-menu .nav-links a:hover {
+            background-color: #f9fafb;
+            color: #111827;
+        }
+
+        .mobile-menu .search-btn {
+            margin: 16px 24px 0 24px;
+            padding: 18px;
+            height: auto;
+            justify-content: flex-start;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #374151;
+            font-weight: 500;
+            background-color: #f9fafb;
+            width: calc(100% - 48px);
+            /* Using Poppins font in mobile menu */
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .mobile-menu .search-btn i {
+            margin-right: 12px;
+        }
+
+        /* Overlay for mobile */
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease;
+        }
+
+        .overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Content for demonstration - Using Poppins font */
+        .content {
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+        }
+
+        .content h1 {
+            font-family: 'Poppins', sans-serif;
+            font-size: 28px;
+            margin-bottom: 16px;
+            color: #111827;
+            font-weight: 600;
+        }
+
+        .content p {
+            color: #6b7280;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            font-size: 16px;
+            /* Using Poppins font for content */
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-container {
+                display: none;
+            }
+            .logo {
+                padding: 0 40px;
+            }
+
+            .hamburger {
+                display: flex;
+                margin-left: auto;
+            }
+            
+            /* Adjust body padding for mobile */
+            body {
+                padding-top: 56px;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-menu, .overlay {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="logo">engadget</a>
+        
+        <div class="nav-container">
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Reviews</a></li>
+                <li><a href="#">Best Picks</a></li>
+                <li><a href="#">Comparisons</a></li>
+                <li><a href="#">Deals</a></li>
+            </ul>
+            
+            <div class="nav-search">
+                <button style = "margin-left: 10vw;" class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+        
+        <button class="hamburger" id="hamburger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </nav>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <div class="mobile-logo">engadget</div>
+        <button class="mobile-close" id="mobileClose">
+            <i class="fas fa-times"></i>
+        </button>
+        <ul class="nav-links">
+            <li><a href="#" class="active">Home</a></li>
+            <li><a href="#">Reviews</a></li>
+            <li><a href="#">Best Picks</a></li>
+            <li><a href="#">Comparisons</a></li>
+            <li><a href="#">Deals</a></li>
+        </ul>
+        <button class="search-btn" id="mobileSearch">
+            <i class="fas fa-search"></i>
+            Search
+        </button>
+    </div>
+    
+    <div class="overlay" id="overlay"></div>
+
+    
+
+    <script>
+        // Mobile menu functionality
+        const hamburger = document.getElementById('hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const overlay = document.getElementById('overlay');
+        const mobileLinks = document.querySelectorAll('.mobile-menu a');
+        const mobileSearchBtn = document.getElementById('mobileSearch');
+        const mobileCloseBtn = document.getElementById('mobileClose');
+
+        // Toggle mobile menu
+        function toggleMobileMenu() {
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            overlay.classList.toggle('active');
+            
+            // Prevent body scrolling when menu is open
+            if (mobileMenu.classList.contains('active')) {
+                document.body.style.overflow = 'hidden';
+            } else {
+                document.body.style.overflow = 'auto';
+            }
+        }
+
+        // Close mobile menu
+        function closeMobileMenu() {
+            hamburger.classList.remove('active');
+            mobileMenu.classList.remove('active');
+            overlay.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Event Listeners
+        hamburger.addEventListener('click', toggleMobileMenu);
+        overlay.addEventListener('click', closeMobileMenu);
+        mobileCloseBtn.addEventListener('click', closeMobileMenu);
+        
+        // Close menu when clicking on a link
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMobileMenu);
+        });
+        
+        // Close menu when clicking search button
+        if (mobileSearchBtn) {
+            mobileSearchBtn.addEventListener('click', closeMobileMenu);
+        }
+
+        // Handle window resize
+        window.addEventListener('resize', function() {
+            if (window.innerWidth > 768) {
+                closeMobileMenu();
+            }
+        });
+
+        // Add active state to clicked nav link
+        const navLinks = document.querySelectorAll('.nav-links a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', function() {
+                navLinks.forEach(l => l.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+
+ 
+<style>
+    
+
+    .contentContainer {
+        font-family: 'Poppins', sans-serif;
+        background-color: #ffffff;
+        padding: 40px 5px;
+        color: #334155;
+    }
+
+    .container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .section-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #1e293b;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 10px;
+    }
+
+    /* Content Section */
+    .content-section {
+        display: flex;
+        height: 40vh;
+        min-height: 320px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+    }
+
+    /* Left Image Section */
+    .image-container {
+        flex: 0 0 45%;
+        padding: 25px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .image-wrapper {
+        width: 100%;
+        height: 100%;
+        border-radius: 8px;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .featured-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                    filter 0.6s ease;
+        transform-origin: center center;
+    }
+
+    /* Image overlay for hover effect */
+    .image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, 
+                    rgba(133, 136, 139, 0.1) 0%, 
+                    rgba(186, 184, 189, 0.1) 100%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+    }
+
+    /* Hover effects */
+    .image-container:hover .featured-image {
+        transform: scale(1.05);
+        filter: brightness(1.1) saturate(1.2);
+    }
+
+    .image-container:hover .image-overlay {
+        opacity: 1;
+    }
+
+    /* Subtle shine effect */
+    .image-shine {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+                    rgba(255, 255, 255, 0) 0%, 
+                    rgba(255, 255, 255, 0.2) 50%, 
+                    rgba(255, 255, 255, 0) 100%);
+        transform: skewX(-20deg);
+        transition: left 0.8s ease;
+    }
+
+    .image-container:hover .image-shine {
+        left: 150%;
+    }
+
+    /* Right Content Section */
+    .content-container {
+        flex: 1;
+        padding: 30px 35px;
+        display: flex;
+        flex-direction: column;
+        position: relative;
+    }
+
+    .content-title {
+        font-size: 22px;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 18px;
+        line-height: 1.3;
+        position: relative;
+        display: inline-block;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        cursor: default;
+    }
+
+    /* Thin underline effect for heading on hover - ORIGINAL */
+    .content-title::after {
+        content: '';
+        position: absolute;
+        bottom: -5px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background-color: #ffffff;
+        transition: width 0.3s ease;
+    }
+
+    /* Show underline when hovering over image or content section - ORIGINAL */
+    .content-section:hover .content-title::after {
+        width: 80%;
+    }
+
+    /* NEW: Thin grey underline when hovering on image only */
+    .image-container:hover ~ .content-container .content-title {
+        text-decoration: underline;
+        text-decoration-thickness: 0.1px;
+        text-decoration-color: #99a1ac;
+        text-underline-offset: 2px;
+        cursor: pointer;
+    }
+
+    /* Optional: Add a subtle color change to heading on hover */
+    .content-section:hover .content-title {
+        color: #1e293b;
+    }
+
+    .content-text {
+        flex: 1;
+        overflow: hidden;
+        margin-bottom: 20px;
+        line-height: 1.5;
+        color: #475569;
+        font-size: 13px;
+        position: relative;
+    }
+
+    /* Specific styling for paragraphs inside content-text */
+    .content-text p {
+        font-size: 13px;
+        margin-bottom: 12px;
+    }
+
+    /* Fading text effect for last two words */
+    .fade-container {
+        position: relative;
+        display: inline;
+    }
+
+    .fade-text {
+        position: relative;
+        color: transparent;
+        background-clip: text;
+        -webkit-background-clip: text;
+        background-image: linear-gradient(90deg, 
+            rgba(71, 85, 105, 1) 0%, 
+            rgba(71, 85, 105, 0.8) 50%, 
+            rgba(71, 85, 105, 0.4) 70%, 
+            rgba(71, 85, 105, 0.2) 85%,
+            rgba(71, 85, 105, 0) 100%);
+    }
+
+    .read-more {
+        font-weight: 600;
+        color: #000;
+        text-decoration: none;
+        display: inline-block;
+        margin-left: 5px;
+        transition: color 0.2s;
+        font-size: 13px;
+    }
+
+    .read-more:hover {
+        color: #1d4ed8;
+        text-decoration: underline;
+    }
+
+    /* Author info section */
+    .author-info {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: auto;
+        padding-top: 20px;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .author-details {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
+    .author-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background-color: #cbd5e1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        transition: all 0.3s ease;
+    }
+
+    .author-avatar i {
+        font-size: 22px;
+        color: #64748b;
+        transition: color 0.3s ease;
+    }
+
+    .author-name {
+        font-weight: 600;
+        color: #1e293b;
+        font-size: 15px;
+    }
+
+    .author-role {
+        font-size: 13px;
+        color: #64748b;
+        margin-top: 3px;
+    }
+
+    .upload-date {
+        font-size: 13px;
+        color: #94a3b8;
+        font-weight: 500;
+    }
+    .author-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #cbd5e1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .avatar-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    /* Responsive adjustments */
+    @media (max-width: 992px) {
+        .content-section {
+            flex-direction: column;
+            height: auto;
+        }
+        
+        .image-container {
+            flex: none;
+            height: 200px;
+        }
+        
+        .content-container {
+            padding: 25px;
+        }
+    }
+
+    @media (max-width: 576px) {
+       
+        .contentContainer {
+            padding: 10px;
+        } 
+        .content-container {
+            padding: 20px;
+        }
+        
+        .content-title {
+            font-size: 20px;
+        }
+        
+        .author-info {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 15px;
+        }
+        
+        .upload-date {
+            align-self: flex-end;
+        }
+    }
+</style>
+
+<div class="contentContainer">
+    <div class="container">
+        <div class="content-section">
+            <!-- Left Image Section -->
+            <div class="image-container">
+                <div class="image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                         alt="Mountain Landscape" 
+                         class="featured-image">
+                    <div class="image-overlay"></div>
+                    <div class="image-shine"></div>
+                </div>
+            </div>
+            
+            <!-- Right Content Section -->
+            <div class="content-container">
+                <h2 class="content-title">Exploring the Future of Sustainable Technology</h2>
+                
+                <div class="content-text">
+                    <p>As we move further into the 21st century, sustainable technology is becoming increasingly crucial for our planet's future. From renewable energy solutions to eco-friendly materials, innovators are creating breakthroughs that could reshape our world.</p>
+                    
+                    <p>Technologies is opening new possibilities for energy efficiency and waste reduction. Recent advancements in solar panel efficiency and battery storage capacity have made renewable energy more accessible than 
+                        <span class="fade-container">
+                            <span class="fade-text">ever before.</span>
+                        </span>
+                        <a href="#" class="read-more">Read More</a>
+                    </p>
+                </div>
+                
+                <div class="author-info">
+                    <div class="author-details">
+                        <div class="author-avatar">
+                            <img class="avatar-image" src="https://images.unsplash.com/photo-1755519024827-fd05075a7200?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1lbiUyMHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D" alt="Author Profile">
+                        </div>
+                        <div>
+                            <div class="author-name">Alex Morgan</div>
+                        </div>
+                    </div>
+                    
+                    <div class="upload-date">
+                         Nov 29, 2025
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Add hover effect to author avatar
+    const authorAvatar = document.querySelector('.author-avatar');
+    authorAvatar.addEventListener('mouseenter', function() {
+        this.style.backgroundColor = '#2563eb';
+        this.style.transform = 'translateY(-3px)';
+        this.querySelector('i').style.color = '#ffffff';
+    });
+    
+    authorAvatar.addEventListener('mouseleave', function() {
+        this.style.backgroundColor = '#cbd5e1';
+        this.style.transform = 'translateY(0)';
+        this.querySelector('i').style.color = '#64748b';
+    });
+    
+    // Optional: Add click effect for read more
+    const readMoreLink = document.querySelector('.read-more');
+    readMoreLink.addEventListener('click', function(e) {
+        e.preventDefault();
+        alert('Article expanded to show full content');
+    });
+
+    // Add click effect to image for demonstration
+    const imageContainer = document.querySelector('.image-container');
+    imageContainer.addEventListener('click', function() {
+        this.style.boxShadow = '0 0 0 4px rgba(37, 99, 235, 0.2)';
+        setTimeout(() => {
+            this.style.boxShadow = 'none';
+        }, 500);
+    });
+
+    // Make the h2 title clickable when image is hovered
+    const contentTitle = document.querySelector('.content-title');
+    imageContainer.addEventListener('mouseenter', function() {
+        contentTitle.style.cursor = 'pointer';
+    });
+    
+    imageContainer.addEventListener('mouseleave', function() {
+        contentTitle.style.cursor = 'default';
+    });
+    
+    // Optional: Add click event to h2 when image is being hovered (or clicked)
+    contentTitle.addEventListener('click', function() {
+        if (imageContainer.matches(':hover')) {
+            alert('Navigating to article about Sustainable Technology');
+        }
+    });
+</script>
+
+    
+    
+<style>
+        .gridimagepart {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            padding: 30px 10px;
+            color: #334155;
+        }
+
+        .nexus-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .zenith-section-title {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #1e293b;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 10px;
+        }
+
+        /* Quantum Cards Container */
+        .quantum-cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        /* Aura Card */
+        .aura-card-element {
+            flex: 1;
+            min-width: 300px;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        /* Card Image with Enhanced Hover Animation */
+        .celestial-image-wrapper {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .quantum-image-container {
+            width: 100%;
+            height: 100%;
+            border-radius: 0;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .stellar-featured-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                        filter 0.6s ease;
+            transform-origin: center center;
+        }
+
+        /* Enhanced Image Overlay */
+        .nebula-image-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                        rgba(143, 145, 150, 0.1) 0%, 
+                        rgba(129, 125, 134, 0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+        }
+
+        /* Shine Effect */
+        .cosmic-shine-effect {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                        rgba(255, 255, 255, 0) 0%, 
+                        rgba(255, 255, 255, 0.2) 50%, 
+                        rgba(255, 255, 255, 0) 100%);
+            transform: skewX(-20deg);
+            transition: left 0.8s ease;
+        }
+
+        /* Hover Effects - Same as initial section */
+        
+        .aura-card-element:hover .nebula-image-overlay {
+            opacity: 1;
+        }
+
+        .aura-card-element:hover .cosmic-shine-effect {
+            left: 150%;
+        }
+
+        /* Card Content */
+        .vortex-content-wrapper {
+            padding: 25px;
+        }
+
+        .stellar-card-heading {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e293b;
+            margin-bottom: 20px;
+            line-height: 1.5;
+            height: 54px;
+            overflow: hidden;
+            display: -webkit-box;
+            transition: width 0.3s ease;
+            -webkit-box-orient: vertical;
+            position: relative;
+            padding-bottom: 4px; /* Space for the underline */
+            text-decoration: none;
+            cursor: default;
+        }
+        
+       
+
+        
+
+        /* NEW: Thin grey underline when hovering on image only */
+        .celestial-image-wrapper:hover ~ .vortex-content-wrapper .stellar-card-heading {
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-decoration-color: #94a3b8;
+            text-underline-offset: 4px;
+            cursor: pointer;
+        }
+
+        /* Card Footer - Author & Date */
+        .quantum-footer-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 20px;
+            border-top: 1px solid #e2e8f0;
+        }
+
+        .cosmic-author-info {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .zenith-author-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: #cbd5e1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .zenith-author-avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .zenith-author-avatar i {
+            font-size: 18px;
+            color: #64748b;
+            transition: color 0.3s ease;
+        }
+
+        .galaxy-author-details {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .celestial-author-name {
+            font-weight: 600;
+            color: #1e293b;
+            font-size: 14px;
+        }
+
+        .quantum-card-date {
+            font-size: 13px;
+            color: #94a3b8;
+            font-weight: 500;
+        }
+
+        /* Enhanced Hover effects for avatar */
+      
+        .aura-card-element:hover .zenith-author-avatar i {
+            color: #ffffff;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .quantum-cards-container {
+                gap: 25px;
+            }
+            
+            .aura-card-element {
+                min-width: calc(50% - 25px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            
+            
+            .quantum-cards-container {
+                flex-direction: column;
+            }
+            
+            .aura-card-element {
+                min-width: 100%;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .gridimagepart {
+                padding: 12px;
+            }
+            
+            .zenith-section-title {
+                font-size: 22px;
+            }
+            
+            .vortex-content-wrapper {
+                padding: 20px;
+            }
+            
+            .stellar-card-heading {
+                font-size: 17px;
+            }
+        }
+
+        /* Additional unique hover effect for entire card */
+        .aura-card-element {
+            position: relative;
+            z-index: 1;
+        }
+
+        .aura-card-element::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            background: linear-gradient(45deg, 
+                        rgba(37, 99, 235, 0.05) 0%, 
+                        rgba(124, 58, 237, 0.05) 100%);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            z-index: -1;
+        }
+
+    
+    </style>
+
+<div class = "gridimagepart">
+    <div class="nexus-wrapper">
+        
+        
+        <div class="quantum-cards-container">
+            <!-- Card 1 -->
+            <article class="aura-card-element">
+                <div class="celestial-image-wrapper">
+                    <div class="quantum-image-container">
+                        <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                             alt="Artificial Intelligence Innovation" 
+                             class="stellar-featured-image">
+                        <div class="nebula-image-overlay"></div>
+                        <div class="cosmic-shine-effect"></div>
+                    </div>
+                </div>
+                
+                <div class="vortex-content-wrapper">
+                    <h3 class="stellar-card-heading">How AI is Transforming Healthcare with Predictive...</h3>
+                    
+                    <footer class="quantum-footer-section">
+                        <div class="cosmic-author-info">
+                            <div class="zenith-author-avatar">
+                                <img src="https://images.unsplash.com/photo-1755519024827-fd05075a7200?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1lbiUyMHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D" 
+                                     alt="Sarah Chen">
+                            </div>
+                            <div class="galaxy-author-details">
+                                <span class="celestial-author-name">Sarah Chen</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quantum-card-date">
+                            Nov 28, 2025
+                        </div>
+                    </footer>
+                </div>
+            </article>
+            
+            <!-- Card 2 -->
+            <article class="aura-card-element">
+                <div class="celestial-image-wrapper">
+                    <div class="quantum-image-container">
+                        <img src="https://images.unsplash.com/photo-1556761175-b413da4baf72?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                             alt="Sustainable Architecture" 
+                             class="stellar-featured-image">
+                        <div class="nebula-image-overlay"></div>
+                        <div class="cosmic-shine-effect"></div>
+                    </div>
+                </div>
+                
+                <div class="vortex-content-wrapper">
+                    <h3 class="stellar-card-heading">The Rise of Green Buildings: Sustainable Architecture...</h3>
+                    
+                    <footer class="quantum-footer-section">
+                        <div class="cosmic-author-info">
+                            <div class="zenith-author-avatar">
+                                <img src="https://images.unsplash.com/photo-1755519024827-fd05075a7200?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1lbiUyMHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D" 
+                                     alt="Sarah Chen">
+                            </div>
+                            <div class="galaxy-author-details">
+                                <span class="celestial-author-name">Marcus Rivera</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quantum-card-date">
+                            Nov 25, 2025
+                        </div>
+                    </footer>
+                </div>
+            </article>
+            
+            <!-- Card 3 -->
+            <article class="aura-card-element">
+                <div class="celestial-image-wrapper">
+                    <div class="quantum-image-container">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                             alt="Remote Work Technology" 
+                             class="stellar-featured-image">
+                        <div class="nebula-image-overlay"></div>
+                        <div class="cosmic-shine-effect"></div>
+                    </div>
+                </div>
+                
+                <div class="vortex-content-wrapper">
+                    <h3 class="stellar-card-heading">Future of Work: How Remote Collaboration Tools Are Changing Business Dynamics</h3>
+                    
+                    <footer class="quantum-footer-section">
+                        <div class="cosmic-author-info">
+                            <div class="zenith-author-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                                     alt="James Wilson">
+                            </div>
+                            <div class="galaxy-author-details">
+                                <span class="celestial-author-name">James Wilson</span>
+                            </div>
+                        </div>
+                        
+                        <div class="quantum-card-date">
+                            Nov 22, 2025
+                        </div>
+                    </footer>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+   
+
+   
+   <style>
+    .anotherimgpart {
+        font-family: 'Poppins', sans-serif;
+        background-color: #ffffff;
+        padding: 40px 10px;
+        color: #334155;
+    }
+
+    .celestial-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .nebula-section-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #1e293b;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 10px;
+    }
+
+    /* Main Split Container */
+    .stellar-split-wrapper {
+        display: flex;
+        gap: 30px;
+        margin-top: 20px;
+        height: 450px;
+    }
+
+    /* Left Side - 50% Width */
+    .quantum-left-column {
+        flex: 0 0 50%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Right Side - 50% Width */
+    .vortex-right-column {
+        flex: 0 0 50%;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    /* Left Card Style */
+    .galaxy-left-card {
+        flex: 1;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Left Image */
+    .cosmic-left-image {
+        flex: 0 0 60%;
+        overflow: hidden;
+        position: relative;
+        cursor: pointer;
+    }
+
+    .cosmic-image-wrapper {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .stellar-featured-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                    filter 0.6s ease;
+        transform-origin: center center;
+    }
+
+    /* Enhanced Image Overlay */
+    .quantum-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, 
+                    rgba(200, 202, 206, 0.1) 0%, 
+                    rgba(213, 210, 219, 0.1) 100%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+    }
+
+    /* Shine Effect */
+    .stellar-shine-animation {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+                    rgba(255, 255, 255, 0) 0%, 
+                    rgba(255, 255, 255, 0.2) 50%, 
+                    rgba(255, 255, 255, 0) 100%);
+        transform: skewX(-20deg);
+        transition: left 0.8s ease;
+    }
+
+    /* Hover Effects */
+    .cosmic-left-image:hover .stellar-featured-image {
+        transform: scale(1.05);
+        filter: brightness(1.1) saturate(1.2);
+    }
+
+    .galaxy-left-card:hover .quantum-image-overlay {
+        opacity: 1;
+    }
+
+    .galaxy-left-card:hover .stellar-shine-animation {
+        left: 150%;
+    }
+
+    /* Left Content */
+    .nebula-left-content {
+        flex: 0 0 40%;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .cosmic-card-heading {
+        font-size: 22px;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 20px;
+        line-height: 1.4;
+        flex-grow: 1;
+        position: relative;
+        padding-bottom: 4px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        text-decoration: none;
+        cursor: default;
+    }
+
+  
+
+    /* NEW: Thin grey underline when hovering on left image only */
+    .cosmic-left-image:hover ~ .nebula-left-content .cosmic-card-heading {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-decoration-color: #94a3b8;
+        text-underline-offset: 4px;
+        cursor: pointer;
+    }
+
+    /* Right Side Items */
+    .vortex-right-item {
+        flex: 1;
+        display: flex;
+        background-color: transparent;
+        transition: transform 0.3s ease;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* Right Images - Larger and Matching Height */
+    .vortex-right-image {
+        flex: 0 0 50%;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+        background-color: transparent;
+        border-radius: 8px;
+    }
+
+    .vortex-right-image .cosmic-image-wrapper {
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Right Content */
+    .quantum-right-content {
+        flex: 1;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        background-color: transparent;
+    }
+
+    .vortex-right-heading {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 15px;
+        line-height: 1.4;
+        flex-grow: 1;
+        position: relative;
+        padding-bottom: 4px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        text-decoration: none;
+        cursor: default;
+    }
+
+    
+
+    /* NEW: Thin grey underline when hovering on right image only */
+    .vortex-right-image:hover ~ .quantum-right-content .vortex-right-heading {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-decoration-color: #94a3b8;
+        text-underline-offset: 4px;
+        cursor: pointer;
+    }
+
+    /* Author Info Section */
+    .zenith-author-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 15px;
+        border-top: 1px solid #e2e8f0;
+        margin-top: auto;
+    }
+
+    .stellar-author-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .quantum-author-avatar {
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #cbd5e1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .quantum-author-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .quantum-author-avatar i {
+        font-size: 18px;
+        color: #64748b;
+        transition: color 0.3s ease;
+    }
+
+    .galaxy-author-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .nebula-author-name {
+        font-weight: 600;
+        color: #1e293b;
+        font-size: 14px;
+    }
+
+    .cosmic-date-display {
+        font-size: 13px;
+        color: #94a3b8;
+        font-weight: 500;
+    }
+
+    
+
+    .vortex-right-item:hover .quantum-author-avatar i {
+        color: #ffffff;
+    }
+
+ 
+    .galaxy-left-card:hover .quantum-author-avatar i {
+        color: #ffffff;
+    }
+
+    /* Image Hover Effects for Right Items */
+    .vortex-right-image:hover .stellar-featured-image {
+        transform: scale(1.08);
+        filter: brightness(1.15) saturate(1.3);
+    }
+
+    .vortex-right-item:hover .quantum-image-overlay {
+        opacity: 1;
+    }
+
+    .vortex-right-item:hover .stellar-shine-animation {
+        left: 150%;
+    }
+
+    /* Card hover effects */
+    .galaxy-left-card:hover {
+        transform: translateY(-3px);
+    }
+
+    .vortex-right-item:hover {
+        transform: translateY(-3px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .stellar-split-wrapper {
+            flex-direction: column;
+            height: auto;
+            gap: 25px;
+        }
+        
+        .quantum-left-column,
+        .vortex-right-column {
+            flex: none;
+            width: 100%;
+        }
+        
+        .vortex-right-column {
+            gap: 25px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .stellar-split-wrapper {
+            height: auto;
+        }
+        
+        .vortex-right-item {
+            flex-direction: column;
+        }
+        
+        .vortex-right-image {
+            flex: none;
+            height: 250px;
+        }
+        
+        .cosmic-left-image {
+            height: 300px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .anotherimgpart {
+            padding: 12px;
+        }
+        
+        .nebula-section-title {
+            font-size: 22px;
+        }
+        
+        .nebula-left-content {
+            padding: 20px;
+        }
+        
+        .cosmic-card-heading {
+            font-size: 20px;
+        }
+        
+        .vortex-right-heading {
+            font-size: 17px;
+        }
+        
+        .quantum-right-content {
+            padding: 15px;
+        }
+    }
+
+    /* Remove card styling from right items */
+    .vortex-right-item {
+        box-shadow: none;
+        border-radius: 0;
+    }
+
+    /* Ensure equal height distribution for right items */
+    .vortex-right-column {
+        height: 100%;
+    }
+
+    .vortex-right-item {
+        height: calc(50% - 10px);
+    }
+</style>
+
+<div class="anotherimgpart">
+    <div class="celestial-container">
+        <div class="stellar-split-wrapper">
+            <!-- Left Side - 50% Width -->
+            <div class="quantum-left-column">
+                <article class="galaxy-left-card">
+                    <div class="cosmic-left-image">
+                        <div class="cosmic-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                                 alt="Mountain Landscape" 
+                                 class="stellar-featured-image">
+                            <div class="quantum-image-overlay"></div>
+                            <div class="stellar-shine-animation"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="nebula-left-content">
+                        <h3 class="cosmic-card-heading">Exploring the Future of Sustainable Technology and Renewable Energy Solutions</h3>
+                        
+                        <div class="zenith-author-section">
+                            <div class="stellar-author-info">
+                                <div class="quantum-author-avatar">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                                         alt="Alex Morgan">
+                                </div>
+                                <div class="galaxy-author-details">
+                                    <span class="nebula-author-name">Alex Morgan</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cosmic-date-display">
+                                Nov 29, 2025
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <!-- Right Side - 50% Width -->
+            <div class="vortex-right-column">
+                <!-- Right Side Item 1 -->
+                <article class="vortex-right-item">
+                    <div class="vortex-right-image">
+                        <div class="cosmic-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                                 alt="AI Technology" 
+                                 class="stellar-featured-image">
+                            <div class="quantum-image-overlay"></div>
+                            <div class="stellar-shine-animation"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="quantum-right-content">
+                        <h3 class="vortex-right-heading">How Artificial Intelligence is Revolutionizing Modern Healthcare Systems</h3>
+                        
+                        <div class="zenith-author-section">
+                            <div class="stellar-author-info">
+                                <div class="quantum-author-avatar">
+                                    <img src="https://images.unsplash.com/photo-1755519024827-fd05075a7200?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1lbiUyMHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D" 
+                                         alt="Sarah Chen">
+                                </div>
+                                <div class="galaxy-author-details">
+                                    <span class="nebula-author-name">Sarah Chen</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cosmic-date-display">
+                                Nov 27, 2025
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Right Side Item 2 -->
+                <article class="vortex-right-item">
+                    <div class="vortex-right-image">
+                        <div class="cosmic-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                                 alt="Data Analytics" 
+                                 class="stellar-featured-image">
+                            <div class="quantum-image-overlay"></div>
+                            <div class="stellar-shine-animation"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="quantum-right-content">
+                        <h3 class="vortex-right-heading">Big Data Analytics: Transforming Business Decisions</h3>
+                        
+                        <div class="zenith-author-section">
+                            <div class="stellar-author-info">
+                                <div class="quantum-author-avatar">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                                         alt="James Wilson">
+                                </div>
+                                <div class="galaxy-author-details">
+                                    <span class="nebula-author-name">James Wilson</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cosmic-date-display">
+                                Nov 25, 2025
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Interactive effects for all items
+    const stellarItems = document.querySelectorAll('.galaxy-left-card, .vortex-right-item');
+    
+    stellarItems.forEach(item => {
+        // Click effect
+        item.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' || e.target.closest('a')) return;
+            
+            const title = this.querySelector('.cosmic-card-heading, .vortex-right-heading')?.textContent || 'Article';
+            this.style.transform = 'scale(0.99)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+            console.log(`Selected: "${title}"`);
+        });
+        
+        // Hover effect management for author avatars
+        const avatar = item.querySelector('.quantum-author-avatar');
+        if (avatar) {
+            item.addEventListener('mouseenter', function() {
+                avatar.style.transform = 'scale(1.05)';
+                avatar.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.2)';
+            });
+            
+            item.addEventListener('mouseleave', function() {
+                avatar.style.transform = '';
+                avatar.style.boxShadow = 'none';
+            });
+        }
+        
+        // Image click effect
+        const imageContainer = item.querySelector('.cosmic-left-image, .vortex-right-image');
+        if (imageContainer) {
+            imageContainer.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        }
+        
+        // Make the headings clickable when image is hovered
+        const heading = item.querySelector('.cosmic-card-heading, .vortex-right-heading');
+        const imageArea = item.querySelector('.cosmic-left-image, .vortex-right-image');
+        
+        if (heading && imageArea) {
+            imageArea.addEventListener('mouseenter', function() {
+                heading.style.cursor = 'pointer';
+            });
+            
+            imageArea.addEventListener('mouseleave', function() {
+                heading.style.cursor = 'default';
+            });
+            
+            // Add click event to heading when image is being hovered
+            heading.addEventListener('click', function() {
+                if (imageArea.matches(':hover')) {
+                    const titleText = this.textContent;
+                    alert(`Navigating to article: ${titleText}`);
+                }
+            });
+        }
+    });
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            const focused = document.activeElement;
+            if (focused.classList.contains('galaxy-left-card') || 
+                focused.classList.contains('vortex-right-item')) {
+                focused.click();
+            }
+        }
+    });
+    
+    // Remove outlines when clicking elsewhere
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.galaxy-left-card') && 
+            !e.target.closest('.vortex-right-item')) {
+            stellarItems.forEach(item => {
+                item.style.transform = '';
+                item.style.boxShadow = '';
+            });
+        }
+    });
+    
+    // Equalize heights on window resize
+    function adjustRightItemsHeight() {
+        const rightColumn = document.querySelector('.vortex-right-column');
+        const rightItems = document.querySelectorAll('.vortex-right-item');
+        
+        if (rightItems.length > 0 && window.innerWidth > 768) {
+            const columnHeight = rightColumn.offsetHeight;
+            const gap = 20;
+            const itemHeight = (columnHeight - gap) / 2;
+            
+            rightItems.forEach(item => {
+                item.style.height = `${itemHeight}px`;
+            });
+        } else {
+            // Reset for mobile
+            rightItems.forEach(item => {
+                item.style.height = '';
+            });
+        }
+    }
+    
+    // Initial adjustment
+    window.addEventListener('load', adjustRightItemsHeight);
+    window.addEventListener('resize', adjustRightItemsHeight);
+</script>
+
+   
+<style>
+    .longcardspart {
+        font-family: 'Poppins', sans-serif;
+        background-color: #ffffff;
+        padding: 40px 10px;
+        color: #334155;
+    }
+
+    .stellar-container {
+        max-width: 1200px;
+        margin: 0 auto;
+    }
+
+    .nebula-section-title {
+        font-size: 24px;
+        font-weight: 600;
+        margin-bottom: 30px;
+        color: #1e293b;
+        border-bottom: 2px solid #e2e8f0;
+        padding-bottom: 10px;
+    }
+
+    /* Cards Container */
+    .quantum-cards-grid {
+        display: flex;
+        flex-direction: column;
+        gap: 25px;
+        margin-top: 20px;
+    }
+
+    /* Individual Card */
+    .celestial-content-card {
+        display: flex;
+        background-color: #ffffff;
+        border-radius: 12px;
+        overflow: hidden;
+        height: 230px;
+        position: relative;
+        z-index: 1;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    /* Image Section - 40% Width */
+    .cosmic-image-side {
+        flex: 0 0 40%;
+        position: relative;
+        overflow: hidden;
+        cursor: pointer;
+    }
+
+    .stellar-image-wrapper {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    .galaxy-featured-image {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94), 
+                    filter 0.6s ease;
+        transform-origin: center center;
+    }
+
+    /* Enhanced Image Overlay */
+    .quantum-image-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(135deg, 
+                    rgba(175, 176, 179, 0.1) 0%, 
+                    rgba(156, 154, 158, 0.1) 100%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+    }
+
+    /* Shine Effect */
+    .cosmic-shine-animation {
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 50%;
+        height: 100%;
+        background: linear-gradient(90deg, 
+                    rgba(255, 255, 255, 0) 0%, 
+                    rgba(255, 255, 255, 0.2) 50%, 
+                    rgba(255, 255, 255, 0) 100%);
+        transform: skewX(-20deg);
+        transition: left 0.8s ease;
+    }
+
+    /* Hover Effects */
+    .celestial-content-card:hover .galaxy-featured-image {
+        transform: scale(1.05);
+        filter: brightness(1.1) saturate(1.2);
+    }
+
+    .celestial-content-card:hover .quantum-image-overlay {
+        opacity: 1;
+    }
+
+    .celestial-content-card:hover .cosmic-shine-animation {
+        left: 150%;
+    }
+
+    /* Content Section - 60% Width */
+    .vortex-content-side {
+        flex: 1;
+        padding: 25px;
+        display: flex;
+        flex-direction: column;
+    }
+
+    /* Heading with Underline Effect */
+    .nebula-card-heading {
+        font-size: 20px;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 12px;
+        line-height: 1.4;
+        position: relative;
+        padding-bottom: 4px;
+        cursor: pointer;
+        transition: color 0.3s ease;
+        text-decoration: none;
+        cursor: default;
+    }
+
+    
+
+    /* NEW: Thin grey underline when hovering on image only */
+    .cosmic-image-side:hover ~ .vortex-content-side .nebula-card-heading {
+        text-decoration: underline;
+        text-decoration-thickness: 1px;
+        text-decoration-color: #94a3b8;
+        text-underline-offset: 4px;
+        cursor: pointer;
+    }
+
+    /* Paragraph Content */
+    .stellar-paragraph-content {
+        flex: 1;
+        color: #475569;
+        font-size: 14px;
+        line-height: 1.6;
+        margin-bottom: 15px;
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+    }
+
+    /* Author Info Section */
+    .zenith-author-section {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding-top: 15px;
+        border-top: 1px solid #e2e8f0;
+    }
+
+    .quantum-author-info {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .galactic-author-avatar {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        overflow: hidden;
+        background-color: #cbd5e1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+    }
+
+    .galactic-author-avatar img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .galactic-author-avatar i {
+        font-size: 18px;
+        color: #64748b;
+        transition: color 0.3s ease;
+    }
+
+    .cosmic-author-details {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .stellar-author-name {
+        font-weight: 600;
+        color: #1e293b;
+        font-size: 14px;
+    }
+
+    .nebula-date-display {
+        font-size: 13px;
+        color: #94a3b8;
+        font-weight: 500;
+    }
+
+    
+    .celestial-content-card:hover .galactic-author-avatar i {
+        color: '#ffffff';
+    }
+
+    /* Unique hover effect for cards */
+    .celestial-content-card::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 12px;
+        background: linear-gradient(45deg, 
+                    rgba(161, 162, 165, 0.05) 0%, 
+                    rgba(136, 135, 139, 0.05) 100%);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        z-index: -1;
+    }
+
+    .celestial-content-card:hover::before {
+        opacity: 1;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 992px) {
+        .celestial-content-card {
+            height: auto;
+        }
+        
+        .stellar-paragraph-content {
+            -webkit-line-clamp: 2;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .celestial-content-card {
+            flex-direction: column;
+            height: auto;
+        }
+        
+        .cosmic-image-side {
+            flex: none;
+            height: 200px;
+        }
+        
+        .vortex-content-side {
+            padding: 20px;
+        }
+        
+        .nebula-card-heading {
+            font-size: 18px;
+        }
+    }
+
+    @media (max-width: 576px) {
+        .longcardspart {
+            padding: 12px;
+        }
+        
+        .nebula-section-title {
+            font-size: 22px;
+        }
+        
+        .vortex-content-side {
+            padding: 18px;
+        }
+        
+        .stellar-paragraph-content {
+            font-size: 13px;
+        }
+        
+        .nebula-card-heading {
+            font-size: 17px;
+        }
+    }
+</style>
+
+<div class="longcardspart">
+    <div class="stellar-container">
+        <h2 class="nebula-section-title">Latest Articles</h2>
+        
+        <div class="quantum-cards-grid">
+            <!-- Card 1 -->
+            <article class="celestial-content-card">
+                <div class="cosmic-image-side">
+                    <div class="stellar-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                             alt="Mountain Landscape" 
+                             class="galaxy-featured-image">
+                        <div class="quantum-image-overlay"></div>
+                        <div class="cosmic-shine-animation"></div>
+                    </div>
+                </div>
+                
+                <div class="vortex-content-side">
+                    <h3 class="nebula-card-heading">The Future of Sustainable Energy Solutions</h3>
+                    
+                    <div class="stellar-paragraph-content">
+                        Renewable energy technologies are advancing at an unprecedented rate, with solar and wind power becoming more efficient and affordable. These innovations are transforming how we power our cities and industries.
+                    </div>
+                    
+                    <div class="zenith-author-section">
+                        <div class="quantum-author-info">
+                            <div class="galactic-author-avatar">
+                                <img src="https://images.unsplash.com/photo-1755519024827-fd05075a7200?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1lbiUyMHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D" 
+                                     alt="Alex Morgan">
+                            </div>
+                            <div class="cosmic-author-details">
+                                <span class="stellar-author-name">Alex Morgan</span>
+                            </div>
+                        </div>
+                        
+                        <div class="nebula-date-display">
+                            Dec 1, 2025
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Card 2 -->
+            <article class="celestial-content-card">
+                <div class="cosmic-image-side">
+                    <div class="stellar-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                             alt="AI Technology" 
+                             class="galaxy-featured-image">
+                        <div class="quantum-image-overlay"></div>
+                        <div class="cosmic-shine-animation"></div>
+                    </div>
+                </div>
+                
+                <div class="vortex-content-side">
+                    <h3 class="nebula-card-heading">AI Revolution in Healthcare Systems</h3>
+                    
+                    <div class="stellar-paragraph-content">
+                        Artificial intelligence is transforming medical diagnosis and treatment planning. Machine learning algorithms can now analyze medical images with accuracy surpassing human experts in some cases.
+                    </div>
+                    
+                    <div class="zenith-author-section">
+                        <div class="quantum-author-info">
+                            <div class="galactic-author-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Nnx8bWVuJTIwcHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" 
+                                     alt="Sarah Chen">
+                            </div>
+                            <div class="cosmic-author-details">
+                                <span class="stellar-author-name">Sarah Chen</span>
+                            </div>
+                        </div>
+                        
+                        <div class="nebula-date-display">
+                            Nov 28, 2025
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Card 3 -->
+            <article class="celestial-content-card">
+                <div class="cosmic-image-side">
+                    <div class="stellar-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                             alt="Data Analytics" 
+                             class="galaxy-featured-image">
+                        <div class="quantum-image-overlay"></div>
+                        <div class="cosmic-shine-animation"></div>
+                    </div>
+                </div>
+                
+                <div class="vortex-content-side">
+                    <h3 class="nebula-card-heading">Big Data Transforming Business Analytics</h3>
+                    
+                    <div class="stellar-paragraph-content">
+                        Companies are leveraging big data analytics to gain insights into customer behavior, optimize operations, and drive strategic decisions. Real-time data processing is becoming standard in modern enterprises.
+                    </div>
+                    
+                    <div class="zenith-author-section">
+                        <div class="quantum-author-info">
+                            <div class="galactic-author-avatar">
+                                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                                     alt="James Wilson">
+                            </div>
+                            <div class="cosmic-author-details">
+                                <span class="stellar-author-name">James Wilson</span>
+                            </div>
+                        </div>
+                        
+                        <div class="nebula-date-display">
+                            Nov 25, 2025
+                        </div>
+                    </div>
+                </div>
+            </article>
+            
+            <!-- Card 4 -->
+            <article class="celestial-content-card">
+                <div class="cosmic-image-side">
+                    <div class="stellar-image-wrapper">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                             alt="Remote Work" 
+                             class="galaxy-featured-image">
+                        <div class="quantum-image-overlay"></div>
+                        <div class="cosmic-shine-animation"></div>
+                    </div>
+                </div>
+                
+                <div class="vortex-content-side">
+                    <h3 class="nebula-card-heading">Future of Remote Work Technology</h3>
+                    
+                    <div class="stellar-paragraph-content">
+                        The shift to remote work has accelerated digital transformation. New collaboration tools and virtual workspace technologies are redefining how teams communicate and collaborate across distances.
+                    </div>
+                    
+                    <div class="zenith-author-section">
+                        <div class="quantum-author-info">
+                            <div class="galactic-author-avatar">
+                                <img src="https://images.unsplash.com/photo-1568602471122-7832951cc4c5?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8bWVuJTIwcHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D" 
+                                     alt="Marcus Rivera">
+                            </div>
+                            <div class="cosmic-author-details">
+                                <span class="stellar-author-name">Marcus Rivera</span>
+                            </div>
+                        </div>
+                        
+                        <div class="nebula-date-display">
+                            Nov 22, 2025
+                        </div>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Interactive effects for all cards
+    const celestialCards = document.querySelectorAll('.celestial-content-card');
+    
+    celestialCards.forEach(card => {
+        // Click effect for cards
+        card.addEventListener('click', function(e) {
+            if (e.target.tagName === 'A' || e.target.closest('a')) return;
+            
+            const title = this.querySelector('.nebula-card-heading')?.textContent || 'Article';
+            this.style.transform = 'translateY(-5px) scale(0.995)';
+            setTimeout(() => {
+                this.style.transform = '';
+            }, 200);
+            console.log(`Selected: "${title}"`);
+        });
+        
+        // Hover effect management for author avatars
+        const avatar = card.querySelector('.galactic-author-avatar');
+        if (avatar) {
+            // Only for avatars with icons (not images)
+            if (avatar.querySelector('i')) {
+                card.addEventListener('mouseenter', function() {
+                    avatar.style.backgroundColor = '#2563eb';
+                    avatar.querySelector('i').style.color = '#ffffff';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    avatar.style.backgroundColor = '#cbd5e1';
+                    avatar.querySelector('i').style.color = '#64748b';
+                });
+            } else {
+                // For avatars with images
+                card.addEventListener('mouseenter', function() {
+                    avatar.style.transform = 'scale(1.05)';
+                    avatar.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.2)';
+                });
+                
+                card.addEventListener('mouseleave', function() {
+                    avatar.style.transform = '';
+                    avatar.style.boxShadow = 'none';
+                });
+            }
+        }
+        
+        // Image click effect
+        const imageContainer = card.querySelector('.cosmic-image-side');
+        const heading = card.querySelector('.nebula-card-heading');
+        
+        if (imageContainer) {
+            // Add hover effect to change cursor when image is hovered
+            imageContainer.addEventListener('mouseenter', function() {
+                heading.style.cursor = 'pointer';
+            });
+            
+            imageContainer.addEventListener('mouseleave', function() {
+                heading.style.cursor = 'default';
+            });
+            
+            // Image click effect
+            imageContainer.addEventListener('click', function(e) {
+                e.stopPropagation();
+                this.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+            });
+        }
+        
+        // Make heading clickable when image is being hovered
+        if (heading) {
+            heading.addEventListener('click', function() {
+                const imageContainer = this.closest('.celestial-content-card').querySelector('.cosmic-image-side');
+                if (imageContainer.matches(':hover')) {
+                    alert(`Navigating to article: "${this.textContent}"`);
+                }
+            });
+        }
+        
+        // Paragraph content expand on click
+        const paragraph = card.querySelector('.stellar-paragraph-content');
+        if (paragraph) {
+            paragraph.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if (this.style.webkitLineClamp === 'initial') {
+                    this.style.webkitLineClamp = '3';
+                    this.style.cursor = 'pointer';
+                } else {
+                    this.style.webkitLineClamp = 'initial';
+                    this.style.cursor = 'text';
+                }
+            });
+            
+            // Add cursor pointer to indicate expandable
+            paragraph.style.cursor = 'pointer';
+        }
+    });
+    
+    // Add keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+            const focused = document.activeElement;
+            if (focused.classList.contains('celestial-content-card')) {
+                focused.click();
+            }
+        }
+    });
+    
+    // Remove outlines when clicking elsewhere
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.celestial-content-card')) {
+            celestialCards.forEach(card => {
+                card.style.transform = '';
+                const paragraph = card.querySelector('.stellar-paragraph-content');
+                if (paragraph && paragraph.style.webkitLineClamp === 'initial') {
+                    paragraph.style.webkitLineClamp = '3';
+                    paragraph.style.cursor = 'pointer';
+                }
+            });
+        }
+    });
+    
+    // Add tab navigation support
+    celestialCards.forEach((card, index) => {
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('role', 'article');
+        card.setAttribute('aria-labelledby', `heading-long-${index}`);
+        
+        const heading = card.querySelector('.nebula-card-heading');
+        heading.id = `heading-long-${index}`;
+        
+        card.addEventListener('focus', function() {
+            this.style.outline = '3px solid #2563eb';
+            this.style.outlineOffset = '3px';
+        });
+        
+        card.addEventListener('blur', function() {
+            this.style.outline = '';
+        });
+    });
+</script>
+
+    <style>
+
+
+        .anotherimgpartother {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            padding: 40px 10px;
+            color: #334155;
+        }
+
+    </style>
+
+<div class = "anotherimgpartother">
+    <div class="celestial-container">
+       
+        
+        <div class="stellar-split-wrapper">
+            <!-- Left Side - 50% Width -->
+            <div class="quantum-left-column">
+                <article class="galaxy-left-card">
+                    <div class="cosmic-left-image">
+                        <div class="cosmic-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1519681393784-d120267933ba?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                                 alt="Mountain Landscape" 
+                                 class="stellar-featured-image">
+                            <div class="quantum-image-overlay"></div>
+                            <div class="stellar-shine-animation"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="nebula-left-content">
+                        <h3 class="cosmic-card-heading">Exploring the Future of Sustainable Technology and Renewable Energy Solutions</h3>
+                        
+                        <div class="zenith-author-section">
+                            <div class="stellar-author-info">
+                                <div class="quantum-author-avatar">
+                                    <img src="https://images.unsplash.com/photo-1755519024827-fd05075a7200?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1lbiUyMHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D" 
+                                         alt="Alex Morgan">
+                                </div>
+                                <div class="galaxy-author-details">
+                                    <span class="nebula-author-name">Alex Morgan</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cosmic-date-display">
+                                Nov 29, 2025
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <!-- Right Side - 50% Width -->
+            <div class="vortex-right-column">
+                <!-- Right Side Item 1 -->
+                <article class="vortex-right-item">
+                    <div class="vortex-right-image">
+                        <div class="cosmic-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                                 alt="AI Technology" 
+                                 class="stellar-featured-image">
+                            <div class="quantum-image-overlay"></div>
+                            <div class="stellar-shine-animation"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="quantum-right-content">
+                        <h3 class="vortex-right-heading">How Artificial Intelligence is Revolutionizing Modern Healthcare Systems</h3>
+                        
+                        <div class="zenith-author-section">
+                            <div class="stellar-author-info">
+                                <div class="quantum-author-avatar">
+                                    <img src="https://images.unsplash.com/photo-1755519024827-fd05075a7200?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTl8fG1lbiUyMHByb2ZpbGUlMjBpbWFnZXxlbnwwfHwwfHx8MA%3D%3D" 
+                                         alt="Alex Morgan">
+                                </div>
+                                <div class="galaxy-author-details">
+                                    <span class="nebula-author-name">Sarah Chen</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cosmic-date-display">
+                                Nov 27, 2025
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                
+                <!-- Right Side Item 2 -->
+                <article class="vortex-right-item">
+                    <div class="vortex-right-image">
+                        <div class="cosmic-image-wrapper">
+                            <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1350&q=80" 
+                                 alt="Data Analytics" 
+                                 class="stellar-featured-image">
+                            <div class="quantum-image-overlay"></div>
+                            <div class="stellar-shine-animation"></div>
+                        </div>
+                    </div>
+                    
+                    <div class="quantum-right-content">
+                        <h3 class="vortex-right-heading">Big Data Analytics: Transforming Business Decisions.</h3>
+                        
+                        <div class="zenith-author-section">
+                            <div class="stellar-author-info">
+                                <div class="quantum-author-avatar">
+                                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=200&q=80" 
+                                         alt="James Wilson">
+                                </div>
+                                <div class="galaxy-author-details">
+                                    <span class="nebula-author-name">James Wilson</span>
+                                </div>
+                            </div>
+                            
+                            <div class="cosmic-date-display">
+                                Nov 25, 2025
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+    <style>
+       
+        .footerpart {
+            font-family: 'Poppins', sans-serif;
+            background-color: #ffffff;
+            margin-top: 5vh;
+            color: #334155;
+            min-height: 2vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Footer Container */
+        .stellar-footer-wrapper {
+            width: 100%;
+            max-width: 100vw;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        /* Main Footer Content */
+        .nebula-footer-content {
+            padding: 10px 40px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        /* Left Section - Company & Social */
+        .quantum-company-section {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .cosmic-company-name {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1e293b;
+            margin-bottom: 20px;
+            letter-spacing: -0.5px;
+        }
+
+        .stellar-social-icons {
+            display: flex;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .social-icon-link {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #f1f5f9;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #64748b;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-icon-link:hover {
+            background-color: #2563eb;
+            color: #ffffff;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.2);
+        }
+
+        .social-icon-link i {
+            font-size: 18px;
+        }
+
+        /* Right Sections - Address, Phone, Email */
+        .vortex-info-section {
+            flex: 2;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        .info-column {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .info-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1b2129;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 15px;
+        }
+
+        .info-content {
+            font-size: 14px;
+            color: #334155;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        .info-content.address {
+            color: #475569;
+            font-weight: 400;
+        }
+
+        /* Footer Bottom Section */
+        .galaxy-footer-bottom {
+            padding: 25px 50px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 20px;
+            background-color: #ffffff;
+        }
+
+        .copyright-text {
+            font-size: 14px;
+            color: #64748b;
+        }
+
+        .zenith-footer-links {
+            display: flex;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-link {
+            font-size: 14px;
+            color: #475569;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .footer-link:hover {
+            color: #2563eb;
+        }
+
+        .footer-link::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: #2563eb;
+            transition: width 0.3s ease;
+        }
+
+        .footer-link:hover::after {
+            width: 100%;
+        }
+
+        /* Divider between links */
+        .footer-link:not(:last-child)::before {
+            content: '';
+            position: absolute;
+            right: -13px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 14px;
+            background-color: #cbd5e1;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .nebula-footer-content {
+                padding: 35px 40px;
+                gap: 30px;
+            }
+            
+            .vortex-info-section {
+                gap: 25px;
+            }
+            
+            .info-column {
+                min-width: 180px;
+            }
+        }
+
+        @media (max-width: 768px) {
+          
+            
+            .nebula-footer-content {
+                padding: 30px;
+                flex-direction: column;
+                gap: 35px;
+            }
+            
+            .vortex-info-section {
+                flex-direction: column;
+                gap: 25px;
+            }
+            
+            .info-column {
+                min-width: 100%;
+            }
+            
+            .galaxy-footer-bottom {
+                padding: 25px 30px;
+                flex-direction: column;
+                text-align: center;
+                gap: 20px;
+            }
+            
+            .zenith-footer-links {
+                justify-content: center;
+            }
+        }
+
+        @media (max-width: 576px) {
+            .nebula-footer-content {
+                padding: 25px;
+            }
+            
+            .cosmic-company-name {
+                font-size: 22px;
+            }
+            
+            .stellar-social-icons {
+                gap: 12px;
+            }
+            
+            .social-icon-link {
+                width: 36px;
+                height: 36px;
+            }
+            
+            .social-icon-link i {
+                font-size: 16px;
+            }
+            
+            .galaxy-footer-bottom {
+                padding: 20px 25px;
+            }
+            
+            .zenith-footer-links {
+                gap: 15px;
+            }
+            
+            .footer-link {
+                font-size: 13px;
+            }
+        }
+
+        /* Hover animations */
+        @keyframes subtlePulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        .cosmic-company-name {
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .cosmic-company-name:hover {
+            color: #2563eb;
+            animation: subtlePulse 0.5s ease;
+        }
+
+        /* Smooth transitions */
+        .info-content {
+            transition: color 0.3s ease;
+        }
+
+        .info-content:hover {
+            color: #2563eb;
+        }
+    </style>
+
+<div class = "footerpart">
+    <footer class="stellar-footer-wrapper">
+        <!-- Main Footer Content -->
+        <div class="nebula-footer-content">
+            <!-- Left Section - Company Name & Social Icons -->
+            <div class="quantum-company-section">
+                <h2 class="cosmic-company-name">Blog Template</h2>
+                <div class="stellar-social-icons">
+                    <a href="#" class="social-icon-link" aria-label="Facebook">
+                        <i class="fab fa-facebook-f"></i>
+                    </a>
+                    <a href="#" class="social-icon-link" aria-label="Twitter">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                    <a href="#" class="social-icon-link" aria-label="Instagram">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="#" class="social-icon-link" aria-label="LinkedIn">
+                        <i class="fab fa-linkedin-in"></i>
+                    </a>
+                    <a href="#" class="social-icon-link" aria-label="YouTube">
+                        <i class="fab fa-youtube"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Right Sections - Address, Phone, Email -->
+            <div class="vortex-info-section">
+                <!-- Address Column -->
+                <div class="info-column">
+                    <div class="info-title">Address</div>
+                    <div class="info-content address">
+                        Level 1, 12 Sample St,<br>
+                        Sydney NSW 2000
+                    </div>
+                </div>
+                
+                <!-- Phone Column -->
+                <div class="info-column">
+                    <div class="info-title">Phone</div>
+                    <div class="info-content">
+                        1800 123 4567
+                    </div>
+                </div>
+                
+                <!-- Email Column -->
+                <div class="info-column">
+                    <div class="info-title">Email</div>
+                    <div class="info-content">
+                        blog@template.io
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer Bottom Section -->
+        <div class="galaxy-footer-bottom">
+            <div class="copyright-text">
+                © 2025 Blog Template. All rights reserved.
+            </div>
+            
+            <div class="zenith-footer-links">
+                <a href="#" class="footer-link">Privacy Policy</a>
+                <a href="#" class="footer-link">Terms & Condition</a>
+                <a href="#" class="footer-link">Cookies Settings</a>
+            </div>
+        </div>
+    </footer>
+</div>
+    <script>
+        // Add interactive effects
+        const socialIcons = document.querySelectorAll('.social-icon-link');
+        const infoContents = document.querySelectorAll('.info-content');
+        const footerLinks = document.querySelectorAll('.footer-link');
+        
+        // Social icons hover effect
+        socialIcons.forEach(icon => {
+            icon.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-3px) rotate(5deg)';
+            });
+            
+            icon.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) rotate(0)';
+            });
+            
+            icon.addEventListener('click', function(e) {
+                e.preventDefault();
+                const platform = this.getAttribute('aria-label');
+                console.log(`Navigating to ${platform}`);
+            });
+        });
+        
+        // Info content click effect
+        infoContents.forEach(content => {
+            content.addEventListener('click', function() {
+                if (this.classList.contains('address')) {
+                    console.log('Opening address in maps');
+                } else if (this.textContent.includes('1800')) {
+                    console.log('Initiating phone call');
+                } else if (this.textContent.includes('@')) {
+                    console.log('Opening email client');
+                }
+                
+                // Visual feedback
+                this.style.color = '#2563eb';
+                setTimeout(() => {
+                    if (!this.matches(':hover')) {
+                        this.style.color = '';
+                    }
+                }, 500);
+            });
+        });
+        
+        // Footer links click effect
+        footerLinks.forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const linkText = this.textContent;
+                
+                // Visual feedback
+                this.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    this.style.transform = '';
+                }, 200);
+                
+                console.log(`Navigating to: ${linkText}`);
+                
+                // Simulate page navigation
+                alert(`You clicked on: ${linkText}\n(In a real website, this would navigate to the ${linkText} page)`);
+            });
+        });
+        
+        // Company name animation
+        const companyName = document.querySelector('.cosmic-company-name');
+        companyName.addEventListener('click', function() {
+            this.style.color = '#1d4ed8';
+            setTimeout(() => {
+                this.style.color = '';
+            }, 1000);
+            console.log('Navigating to homepage');
+        });
+        
+        // Add keyboard navigation support
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Tab') {
+                const focused = document.activeElement;
+                
+                // Add focus styles
+                if (focused.classList.contains('social-icon-link')) {
+                    focused.style.boxShadow = '0 0 0 3px rgba(37, 99, 235, 0.3)';
+                }
+            }
+        });
+        
+        // Remove focus styles when clicking elsewhere
+        document.addEventListener('click', function(e) {
+            if (!e.target.closest('.social-icon-link')) {
+                socialIcons.forEach(icon => {
+                    icon.style.boxShadow = 'none';
+                });
+            }
+            
+            if (!e.target.closest('.info-content')) {
+                infoContents.forEach(content => {
+                    content.style.color = '';
+                });
+            }
+        });
+    </script>
+
+
+</body>
+</html>
